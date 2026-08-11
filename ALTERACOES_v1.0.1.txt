@@ -1,0 +1,4 @@
+Prioridades DSA v1.0.1
+
+Implementação das correções e atualizações solicitadas em 10/08/2026.
+Consulte LEIA-ME_v1.0.1.md para implantação e escopo.

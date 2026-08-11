@@ -1,0 +1,5 @@
+v1.0.1 — correção do index
+Este pacote usa como base o index funcional fornecido pelo usuário.
+O styles.css original permanece como fonte principal do visual.
+v1.0.1.css contém apenas complementos específicos da atualização.
+O ícone Prioridades usa o SVG oficial fornecido pelo usuário.

@@ -1,0 +1,16 @@
+/** V8 - Usuários e permissões. Execute configurarV8() uma única vez. */
+const V8={ABA_USUARIOS:'Usuarios'};
+function configurarV8(){
+  const ss=SpreadsheetApp.getActive();let sh=ss.getSheetByName(V8.ABA_USUARIOS);if(!sh)sh=ss.insertSheet(V8.ABA_USUARIOS);
+  sh.clear();const h=['id','nome','funcao','area_atuacao','login','senha','ativo','ultima_atualizacao','atualizado_por'];sh.getRange(1,1,1,h.length).setValues([h]);
+  sh.getRange(2,1,3,h.length).setValues([
+    ['USR-KEVIN','Kevin Fernandes','Pastor Distrital','Castelo de Sonhos','kevin.fernandes@adventistas.org','2515',true,new Date(),'configurarV8'],
+    ['USR-ADMIN','Administrador Master','Administrador da Missão','Todas','admin','1844',true,new Date(),'configurarV8'],
+    ['USR-SECRETARIA-CENTRAL','Secretaria IASD Central','Ancião/Secretária Local','Central','secretaria@central.org','1234',true,new Date(),'configurarV8']
+  ]);
+  sh.setFrozenRows(1);sh.getRange(1,1,1,h.length).setFontWeight('bold').setBackground('#102333').setFontColor('#fff');sh.autoResizeColumns(1,h.length);
+}
+function listarUsuariosV8(){const sh=SpreadsheetApp.getActive().getSheetByName(V8.ABA_USUARIOS);if(!sh)throw new Error('Execute configurarV8().');const v=sh.getDataRange().getDisplayValues(),h=v.shift();return v.filter(r=>r[0]).map(r=>{const o={};h.forEach((x,i)=>o[x]=r[i]);o.ativo=String(o.ativo).toLowerCase()!=='false';return o})}
+function autenticarV8(login,senha){const u=listarUsuariosV8().find(x=>String(x.login).trim().toLowerCase()===String(login).trim().toLowerCase()&&String(x.senha)===String(senha)&&x.ativo===true);if(!u)return null;delete u.senha;return u}
+function salvarUsuarioV8(p){const sh=SpreadsheetApp.getActive().getSheetByName(V8.ABA_USUARIOS);['id','nome','funcao','area_atuacao','login','senha'].forEach(c=>{if(!String(p[c]||'').trim())throw new Error('Campo obrigatório: '+c)});const f=sh.getRange('A:A').createTextFinder(String(p.id)).matchEntireCell(true).findNext(),row=f?f.getRow():sh.getLastRow()+1;sh.getRange(row,1,1,9).setValues([[p.id,p.nome,p.funcao,p.area_atuacao,p.login,p.senha,String(p.ativo).toLowerCase()!=='false',new Date(),p.usuario_admin||'']]);return {ok:true,id:p.id,row}}
+function excluirUsuarioV8(id){if(id==='USR-ADMIN')throw new Error('O administrador master não pode ser excluído.');const sh=SpreadsheetApp.getActive().getSheetByName(V8.ABA_USUARIOS),f=sh.getRange('A:A').createTextFinder(String(id)).matchEntireCell(true).findNext();if(!f)return {ok:false,error:'Usuário não encontrado.'};sh.deleteRow(f.getRow());return {ok:true}}

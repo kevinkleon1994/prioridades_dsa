@@ -1,0 +1,14 @@
+PRIORIDADES DSA — ATUALIZAÇÃO v1.0.1 FINAL FUNCIONAL
+
+Base visual oficial desta compilação:
+- index.html funcional fornecido pelo usuário;
+- styles.css funcional fornecido pelo usuário;
+- v1.0.1.css apenas como complemento aditivo;
+- assets oficiais, incluindo icone_prioridades.svg fornecido pelo usuário.
+
+IMPORTANTE:
+1. Substitua os arquivos web pelos arquivos deste pacote.
+2. Não remova styles.css: ele é o CSS principal do sistema.
+3. v1.0.1.css deve permanecer na raiz, ao lado de styles.css.
+4. Faça commit/push no GitHub e depois Ctrl+F5 no navegador.
+5. Se usar PWA instalada, feche/reabra após a publicação para atualizar o cache.
